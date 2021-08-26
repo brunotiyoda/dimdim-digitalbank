@@ -1,0 +1,42 @@
+package com.fiap.dimdim.dimdim.repositories.entities
+
+import javax.persistence.CascadeType.ALL
+import javax.persistence.Column
+import javax.persistence.Entity
+import javax.persistence.EnumType
+import javax.persistence.Enumerated
+import javax.persistence.GeneratedValue
+import javax.persistence.GenerationType
+import javax.persistence.Id
+import javax.persistence.JoinColumn
+import javax.persistence.ManyToOne
+import javax.persistence.OneToMany
+
+@Entity
+data class BankAccountEntity(
+    val agency: String = "0001",
+
+    @Column(unique = true)
+    val account: String,
+
+    var balance: Double = 0.0,
+
+    var previousBalance: Double? = 0.0,
+
+    @ManyToOne(cascade = [ALL])
+    val owner: CostumerEntity,
+
+    @Enumerated(EnumType.STRING)
+    val accountTypeEnum: AccountTypeEnum = AccountTypeEnum.CURRENT_ACCOUNT,
+
+    @Enumerated(EnumType.STRING)
+    val servicesProvidedEnum: ServicesProvidedEnum = ServicesProvidedEnum.PAY_ACCOUNT,
+
+    @OneToMany(cascade = [ALL])
+    var bankStatementEntity: List<BankStatementEntity>? = null
+) {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    val id: Int = 0
+}
