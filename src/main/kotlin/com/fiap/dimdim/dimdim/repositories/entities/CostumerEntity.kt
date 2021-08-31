@@ -1,5 +1,6 @@
 package com.fiap.dimdim.dimdim.repositories.entities
 
+import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.GeneratedValue
 import javax.persistence.GenerationType
@@ -9,6 +10,7 @@ import javax.persistence.Id
 data class CostumerEntity(
     val name: String,
 
+    @Column(unique = true)
     val document: String
 ) {
 

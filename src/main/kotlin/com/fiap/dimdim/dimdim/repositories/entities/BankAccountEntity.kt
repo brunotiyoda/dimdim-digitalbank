@@ -11,6 +11,7 @@ import javax.persistence.Id
 import javax.persistence.JoinColumn
 import javax.persistence.ManyToOne
 import javax.persistence.OneToMany
+import javax.persistence.OneToOne
 
 @Entity
 data class BankAccountEntity(
@@ -23,7 +24,8 @@ data class BankAccountEntity(
 
     var previousBalance: Double? = 0.0,
 
-    @ManyToOne(cascade = [ALL])
+    @OneToOne(cascade = [ALL])
+    @JoinColumn(name = "costumer_id", referencedColumnName = "id")
     val owner: CostumerEntity,
 
     @Enumerated(EnumType.STRING)
@@ -33,7 +35,7 @@ data class BankAccountEntity(
     val servicesProvidedEnum: ServicesProvidedEnum = ServicesProvidedEnum.PAY_ACCOUNT,
 
     @OneToMany(cascade = [ALL])
-    var bankStatementEntity: List<BankStatementEntity>? = null
+    var bankStatementEntity: List<BankStatementEntity>? = emptyList()
 ) {
 
     @Id

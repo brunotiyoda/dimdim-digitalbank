@@ -11,6 +11,7 @@ class DataCostumerService(
     private val bankAccountRepository: BankAccountRepository
 ) {
 
-    fun findByCostumerId(costumer: CostumerEntity): BankAccountEntity = bankAccountRepository.findByOwner(costumer)
+    fun findByCostumerId(costumer: CostumerEntity): BankAccountEntity = bankAccountRepository
+        .findByOwner(costumer)
         .orElseThrow { throw AccountNotFoundException() }
 }
